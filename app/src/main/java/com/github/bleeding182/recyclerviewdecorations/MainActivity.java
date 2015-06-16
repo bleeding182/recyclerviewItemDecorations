@@ -25,6 +25,6 @@ public class MainActivity extends Activity {
         recyclerView.setAdapter(new HeaderItemTestAdapter());
 
         // add the decoration
-        recyclerView.addItemDecoration(new CardViewDecoration(getResources(), Color.WHITE, 8f));
+        recyclerView.addItemDecoration(new CardViewDecoration(getResources(), Color.WHITE, 0f));
     }
 }

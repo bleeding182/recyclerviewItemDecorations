@@ -45,6 +45,7 @@ public class CardViewDecoration extends RecyclerView.ItemDecoration {
     private final int mShadowStartColor;
 
     private final int mShadowEndColor;
+    private float mPadding;
 
 
     public CardViewDecoration(Resources resources, int backgroundColor, float radius) {
@@ -65,38 +66,30 @@ public class CardViewDecoration extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
-        super.onDraw(c, parent, state);
-
-        Resources resources = parent.getContext().getResources();
-        float size16dp = 16f;
-        int padding16dp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, size16dp, resources.getDisplayMetrics());
-
-        buildShadowCorners();
-
-        Log.d("CV", String.format("mCornerRadius: %f\nmShadowSize: %f", mCornerRadius, mShadowSize));
+    public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
+        Rect bounds = new Rect();
+        float edgeShadowTop = -mCornerRadius - mShadowSize;
 
         for (int i = 0; i < parent.getChildCount(); i++) {
             int save = c.save();
             View child = parent.getChildAt(i);
+            bounds.set(child.getLeft() - (int) mPadding,
+                    child.getTop(),
+                    child.getRight() + (int) mPadding,
+                    child.getBottom());
 
             RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
             int position = params.getViewAdapterPosition();
             int viewType = parent.getAdapter().getItemViewType(position);
 
-//            float cornerPathSize = 2 * (mCornerRadius + mShadowSize);
-            float edgeShadowTop = -mCornerRadius - mShadowSize;
-            final Rect bounds = new Rect(child.getLeft(), child.getTop(), child.getRight(), child.getBottom());
 
             if (viewType == HeaderItemTestAdapter.HEADER) {
-                // LT
-//                Log.d("CV", String.format("translate to: %f, %f", child.getLeft() + mCornerRadius, child.getTop() + mCornerRadius));
-//                Log.d("CV", "view: " + bounds.flattenToString());
-//                Log.d("CV", "draw to: " + bounds.right + " - (" + cornerPathSize + "), -" + mCornerRadius);
+                bounds.top -= mPadding;
 
-                c.translate(child.getLeft() + mCornerRadius, child.getTop() + mCornerRadius);
+                // LT
+                c.translate(bounds.left + mCornerRadius, bounds.top + mCornerRadius);
                 c.drawPath(mCornerShadowPath, mCornerShadowPaint);
-                c.drawRect(0, edgeShadowTop, bounds.right - 4 * mCornerRadius, -mCornerRadius, mEdgeShadowPaint);
+                c.drawRect(0, edgeShadowTop, bounds.width() - 2 * mCornerRadius, -mCornerRadius, mEdgeShadowPaint);
 
                 // RT
                 c.rotate(90f);
@@ -112,50 +105,47 @@ public class CardViewDecoration extends RecyclerView.ItemDecoration {
 
             } else {
                 if (parent.getAdapter().getItemViewType(position + 1) == HeaderItemTestAdapter.HEADER) {
-                    Log.d("CV", "Last!");
+                    bounds.bottom += mPadding;
+
                     // last item before next header
                     c.rotate(180f);
-                    c.translate(-child.getLeft() - bounds.width() + mCornerRadius, -child.getTop() - bounds.height() + mCornerRadius);
+                    c.translate(-bounds.left - bounds.width() + mCornerRadius, -bounds.top - bounds.height() + mCornerRadius);
 
                     c.drawPath(mCornerShadowPath, mCornerShadowPaint);
-                    c.drawRect(0, edgeShadowTop, bounds.right - 4 * mCornerRadius, -mCornerRadius, mEdgeShadowPaint);
+                    c.drawRect(0, edgeShadowTop, bounds.width() - 2 * mCornerRadius, -mCornerRadius, mEdgeShadowPaint);
 
-                    // RB
+                    // RT / Right border
                     c.rotate(90f);
                     c.translate(0, -bounds.width() + 2 * mCornerRadius);
                     c.drawPath(mCornerShadowPath, mCornerShadowPaint);
                     c.drawRect(0, edgeShadowTop, bounds.height() - mCornerRadius, -mCornerRadius, mEdgeShadowPaint);
 
-                    //
+                    // Left border
                     c.rotate(180f);
                     c.translate(-bounds.height(), -bounds.width() + 2 * mCornerRadius);
                     c.drawRect(mCornerRadius, edgeShadowTop, bounds.height(), -mCornerRadius, mEdgeShadowPaint);
                 } else {
-                    c.translate(child.getLeft(), child.getTop());
+                    // Right border
+                    c.translate(bounds.left, bounds.top);
                     c.rotate(90f);
                     c.translate(0, -bounds.width() + mCornerRadius);
                     c.drawRect(0, edgeShadowTop, bounds.height(), -mCornerRadius, mEdgeShadowPaint);
 
+                    // Left border
                     c.rotate(180f);
-                    c.translate(- bounds.height(), - bounds.width() + 2 * mCornerRadius );
+                    c.translate(-bounds.height(), -bounds.width() + 2 * mCornerRadius);
                     c.drawRect(0, edgeShadowTop, bounds.height(), -mCornerRadius, mEdgeShadowPaint);
-
-                    // LBorder
-//                    c.rotate(180f);
-//                    c.translate(-bounds.height(), -bounds.width() + 2 * mCornerRadius);
-//                    c.drawRect(mCornerRadius, edgeShadowTop, bounds.height(), -mCornerRadius, mEdgeShadowPaint);
                 }
             }
             c.restoreToCount(save);
         }
     }
 
-    private Rect getBounds(View child) {
-        return new Rect(child.getLeft(), child.getTop(), child.getLeft() + child.getWidth(), child.getTop() + child.getHeight());
-    }
-
-
     private void buildShadowCorners() {
+
+//        mPadding = (float) (Math.sqrt((double) mCornerRadius * (double) mCornerRadius * 2) - (double) mCornerRadius);
+        mPadding = 0f;
+
         RectF innerBounds = new RectF(-mCornerRadius, -mCornerRadius, mCornerRadius, mCornerRadius);
         RectF outerBounds = new RectF(innerBounds);
         outerBounds.inset(-mShadowSize, -mShadowSize);
@@ -201,15 +191,15 @@ public class CardViewDecoration extends RecyclerView.ItemDecoration {
 
         if (viewType == HeaderItemTestAdapter.HEADER) {
             // header
-            outRect.set(0, padding16dp, 0, 0);
+            outRect.set(0, (int) (padding16dp), 0, 0);
         } else {
             if (parent.getAdapter().getItemViewType(position + 1) == HeaderItemTestAdapter.HEADER) {
                 // last item before next header
-                outRect.set(0, 0, 0, padding16dp);
+                outRect.set(0, 0, 0, (int) (padding16dp));
             }
         }
 //        outRect.inset((int) size16dp, 0);
-        outRect.left = (int) size16dp;
-        outRect.right = (int) size16dp;
+        outRect.left = (int) padding16dp;
+        outRect.right = (int) padding16dp;
     }
 }
