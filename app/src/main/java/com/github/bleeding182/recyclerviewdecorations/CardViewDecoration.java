@@ -10,7 +10,6 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 
@@ -70,13 +69,19 @@ public class CardViewDecoration extends RecyclerView.ItemDecoration {
         Rect bounds = new Rect();
         float edgeShadowTop = -mCornerRadius - mShadowSize;
 
+        RecyclerView.LayoutManager lm = parent.getLayoutManager();
+        float size16dp = 16f;
+        int padding16dp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, size16dp, parent.getContext().getResources().getDisplayMetrics());
+
         for (int i = 0; i < parent.getChildCount(); i++) {
             int save = c.save();
+
+            // using decorated values, remove what we set before
             View child = parent.getChildAt(i);
-            bounds.set(child.getLeft() - (int) mPadding,
-                    child.getTop(),
-                    child.getRight() + (int) mPadding,
-                    child.getBottom());
+            bounds.set(lm.getDecoratedLeft(child) + padding16dp - (int) mPadding,
+                    lm.getDecoratedTop(child),
+                    lm.getDecoratedRight(child) - padding16dp + (int) mPadding,
+                    lm.getDecoratedBottom(child));
 
             RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
             int position = params.getViewAdapterPosition();
@@ -84,7 +89,7 @@ public class CardViewDecoration extends RecyclerView.ItemDecoration {
 
 
             if (viewType == HeaderItemTestAdapter.HEADER) {
-                bounds.top -= mPadding;
+                bounds.top = (int) (bounds.top + padding16dp - mPadding);
 
                 // LT
                 c.translate(bounds.left + mCornerRadius, bounds.top + mCornerRadius);
@@ -105,7 +110,7 @@ public class CardViewDecoration extends RecyclerView.ItemDecoration {
 
             } else {
                 if (parent.getAdapter().getItemViewType(position + 1) == HeaderItemTestAdapter.HEADER) {
-                    bounds.bottom += mPadding;
+                    bounds.bottom = (int) (bounds.bottom - padding16dp + mPadding);
 
                     // last item before next header
                     c.rotate(180f);

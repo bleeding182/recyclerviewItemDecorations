@@ -26,5 +26,6 @@ public class MainActivity extends Activity {
 
         // add the decoration
         recyclerView.addItemDecoration(new CardViewDecoration(getResources(), Color.WHITE, 0f));
+        recyclerView.addItemDecoration(new DividerDecoration(this));
     }
 }
