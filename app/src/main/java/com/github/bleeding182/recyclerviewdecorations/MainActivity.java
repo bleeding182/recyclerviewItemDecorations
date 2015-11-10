@@ -30,5 +30,8 @@ public class MainActivity extends Activity {
                 .with(this)
                 .build();
         recyclerView.addItemDecoration(decoration);
+//        recyclerView.addItemDecoration(new CardViewDecoration(getResources(), Color.WHITE, 0f));
+//        recyclerView.addItemDecoration(new DividerDecoration(this));
+//        recyclerView.addItemDecoration(new ParallaxHeaderDecoration(this, R.drawable.night_png));
     }
 }
