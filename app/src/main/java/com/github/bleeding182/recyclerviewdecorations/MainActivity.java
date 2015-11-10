@@ -25,7 +25,10 @@ public class MainActivity extends Activity {
         recyclerView.setAdapter(new HeaderItemTestAdapter());
 
         // add the decoration
-        recyclerView.addItemDecoration(new CardViewDecoration(getResources(), Color.WHITE, 0f));
-        recyclerView.addItemDecoration(new DividerDecoration(this));
+//        recyclerView.addItemDecoration(new CardViewDecoration(getResources(), Color.WHITE, 0f));
+        SeparatorDecoration decoration = SeparatorDecoration
+                .with(this)
+                .build();
+        recyclerView.addItemDecoration(decoration);
     }
 }
