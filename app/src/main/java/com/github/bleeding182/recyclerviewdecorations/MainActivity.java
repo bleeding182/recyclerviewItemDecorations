@@ -1,7 +1,6 @@
 package com.github.bleeding182.recyclerviewdecorations;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,10 +25,14 @@ public class MainActivity extends Activity {
 
         // add the decoration
 //        recyclerView.addItemDecoration(new CardViewDecoration(getResources(), Color.WHITE, 0f));
-        SeparatorDecoration decoration = SeparatorDecoration
-                .with(this)
-                .build();
-        recyclerView.addItemDecoration(decoration);
+//        SeparatorDecoration decoration = SeparatorDecoration
+//                .with(this)
+//                .build();
+        recyclerView.addItemDecoration(HeaderDecoration.with(this)
+                .inflate(R.layout.header)
+                .parallax(0.2f)
+                .dropShadowDp(4)
+                .build());
 //        recyclerView.addItemDecoration(new CardViewDecoration(getResources(), Color.WHITE, 0f));
 //        recyclerView.addItemDecoration(new DividerDecoration(this));
 //        recyclerView.addItemDecoration(new ParallaxHeaderDecoration(this, R.drawable.night_png));
