@@ -36,7 +36,10 @@ import android.support.annotation.FloatRange;
 import android.support.annotation.IntRange;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -74,11 +77,6 @@ public class HeaderDecoration extends RecyclerView.ItemDecoration {
             mShadowPaint = null;
         }
     }
-
-    public static Builder with(Context context) {
-        return new Builder(context);
-    }
-
 
     @Override
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
@@ -138,6 +136,27 @@ public class HeaderDecoration extends RecyclerView.ItemDecoration {
         }
     }
 
+    public static Builder with(Context context) {
+        return new Builder(context);
+    }
+
+    public static Builder with(RecyclerView recyclerView) {
+        RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+        if (layoutManager instanceof GridLayoutManager) {
+            GridLayoutManager manager = (GridLayoutManager) layoutManager;
+            return new Builder(recyclerView.getContext(), manager.getSpanCount());
+        } else if (layoutManager instanceof LinearLayoutManager) {
+            LinearLayoutManager manager = (LinearLayoutManager) layoutManager;
+            return new Builder(recyclerView.getContext(), manager.getOrientation() == LinearLayoutManager.HORIZONTAL);
+        } else if (layoutManager instanceof StaggeredGridLayoutManager) {
+            StaggeredGridLayoutManager manager = (StaggeredGridLayoutManager) layoutManager;
+            return new Builder(recyclerView.getContext(), manager.getSpanCount());
+        } else {
+            return new Builder(recyclerView.getContext());
+        }
+    }
+
+
     public static class Builder {
         private Context mContext;
 
@@ -149,6 +168,16 @@ public class HeaderDecoration extends RecyclerView.ItemDecoration {
 
         public Builder(@NonNull Context context) {
             mContext = context;
+        }
+
+        public Builder(Context context, int columns) {
+            mContext = context;
+            mColumns = columns;
+        }
+
+        public Builder(Context context, boolean horizontal) {
+            mContext = context;
+            mHorizontal = horizontal;
         }
 
 
