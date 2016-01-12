@@ -48,15 +48,31 @@ public class HeaderDecoration extends RecyclerView.ItemDecoration {
     private final View mView;
     private final boolean mHorizontal;
     private final float mParallax;
-    private float mShadowSize;
-    private Paint mShadowPaint;
+    private final float mShadowSize;
+    private final int mColumns;
+    private final Paint mShadowPaint;
 
-    public HeaderDecoration(View view, boolean scrollsHorizontally, float parallax, float shadowSize) {
+    public HeaderDecoration(View view, boolean scrollsHorizontally, float parallax, float shadowSize, int columns) {
         mView = view;
         mHorizontal = scrollsHorizontally;
         mParallax = parallax;
         mShadowSize = shadowSize;
-        init();
+        mColumns = columns;
+
+        if (mShadowSize > 0) {
+            mShadowPaint = new Paint();
+            mShadowPaint.setShader(mHorizontal ?
+                    new LinearGradient(mShadowSize, 0, 0, 0,
+                            new int[]{Color.argb(55, 0, 0, 0), Color.argb(55, 0, 0, 0), Color.argb(3, 0, 0, 0)},
+                            new float[]{0f, .5f, 1f},
+                            Shader.TileMode.CLAMP) :
+                    new LinearGradient(0, mShadowSize, 0, 0,
+                            new int[]{Color.argb(55, 0, 0, 0), Color.argb(55, 0, 0, 0), Color.argb(3, 0, 0, 0)},
+                            new float[]{0f, .5f, 1f},
+                            Shader.TileMode.CLAMP));
+        } else {
+            mShadowPaint = null;
+        }
     }
 
     public static Builder with(Context context) {
@@ -101,22 +117,9 @@ public class HeaderDecoration extends RecyclerView.ItemDecoration {
         }
     }
 
-    public void init() {
-        mShadowPaint = new Paint();
-        mShadowPaint.setShader(mHorizontal ?
-                new LinearGradient(mShadowSize, 0, 0, 0,
-                        new int[]{Color.argb(55, 0, 0, 0), Color.argb(55, 0, 0, 0), Color.argb(3, 0, 0, 0)},
-                        new float[]{0f, .5f, 1f},
-                        Shader.TileMode.CLAMP) :
-                new LinearGradient(0, mShadowSize, 0, 0,
-                        new int[]{Color.argb(55, 0, 0, 0), Color.argb(55, 0, 0, 0), Color.argb(3, 0, 0, 0)},
-                        new float[]{0f, .5f, 1f},
-                        Shader.TileMode.CLAMP));
-    }
-
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        if (parent.getChildAdapterPosition(view) == 0) {
+        if (parent.getChildAdapterPosition(view) < mColumns) {
             if (mHorizontal) {
                 if (mView.getMeasuredWidth() <= 0) {
                     mView.measure(View.MeasureSpec.makeMeasureSpec(parent.getMeasuredWidth(), View.MeasureSpec.AT_MOST),
@@ -142,6 +145,7 @@ public class HeaderDecoration extends RecyclerView.ItemDecoration {
         private boolean mHorizontal;
         private float mParallax = 1f;
         private float mShadowSize;
+        private int mColumns = 1;
 
         public Builder(@NonNull Context context) {
             mContext = context;
@@ -188,7 +192,12 @@ public class HeaderDecoration extends RecyclerView.ItemDecoration {
             if (mView == null) {
                 throw new IllegalStateException("View must be set with either setView or inflate");
             }
-            return new HeaderDecoration(mView, mHorizontal, mParallax, mShadowSize * 1.5f);
+            return new HeaderDecoration(mView, mHorizontal, mParallax, mShadowSize * 1.5f, mColumns);
+        }
+
+        public Builder columns(@IntRange(from = 1) int columns) {
+            mColumns = columns;
+            return this;
         }
     }
 }

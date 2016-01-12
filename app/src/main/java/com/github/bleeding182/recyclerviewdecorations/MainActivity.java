@@ -2,6 +2,7 @@ package com.github.bleeding182.recyclerviewdecorations;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -17,7 +18,7 @@ public class MainActivity extends Activity {
 
         // setup the view
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this,2);
         recyclerView.setLayoutManager(layoutManager);
 
         // add some adapter with header and items
@@ -31,6 +32,7 @@ public class MainActivity extends Activity {
         recyclerView.addItemDecoration(HeaderDecoration.with(this)
                 .inflate(R.layout.header)
                 .parallax(0.2f)
+                .columns(2)
                 .dropShadowDp(4)
                 .build());
 //        recyclerView.addItemDecoration(new CardViewDecoration(getResources(), Color.WHITE, 0f));
