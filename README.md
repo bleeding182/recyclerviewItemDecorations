@@ -8,6 +8,10 @@ This project is about showcasing and trying out ItemDecorations for RecyclerView
 
 ![Header Decoration](/readme/headerdecoration.gif)
 
+* Added a decoration for dismissing items to draw in the background like gmail
+
+![Dismissing items](/readme/dismiss.gif)
+
 * Added some Parallax Like effect on a header
 
 ![Screenshot](/readme/animation.gif)
