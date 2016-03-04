@@ -10,9 +10,15 @@ import android.widget.TextView;
 /**
  * Created by David on 16.06.2015.
  */
-public class HeaderItemTestAdapter extends RecyclerView.Adapter<HeaderItemTestAdapter.SimpleViewHolder> {
+public class HeaderItemTestAdapter extends RecyclerView.Adapter<HeaderItemTestAdapter.SimpleViewHolder>
+        implements ItemTouchHelperCallback.ItemTouchHelperAdapter {
     public static final int HEADER = 1;
     private static final int ITEM = 2;
+
+    @Override
+    public void onItemDismiss(int position) {
+         
+    }
 
     public static class SimpleViewHolder extends ViewHolder {
 
