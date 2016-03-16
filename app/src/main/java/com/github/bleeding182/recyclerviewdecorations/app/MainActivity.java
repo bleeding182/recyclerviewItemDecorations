@@ -1,4 +1,4 @@
-package com.github.bleeding182.recyclerviewdecorations;
+package com.github.bleeding182.recyclerviewdecorations.app;
 
 import android.app.Activity;
 import android.graphics.BitmapFactory;
@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import com.github.bleeding182.recyclerviewdecorations.DismissDecoration;
+import com.github.bleeding182.recyclerviewdecorations.HeaderItemTestAdapter;
+import com.github.bleeding182.recyclerviewdecorations.ItemTouchHelperCallback;
 
 /**
  * Created by David on 16.06.2015.

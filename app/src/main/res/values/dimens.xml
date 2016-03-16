@@ -1,13 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <!-- CardView -->
-    <dimen name="cardview_shadow_size">2dp</dimen>
-    <!-- Default radius for CardView corners. -->
-    <dimen name="cardview_default_radius">0dp</dimen>
-    <!-- Elevation value to use for CardViews. Pre-L, it is equal to shadow size. -->
-    <dimen name="cardview_default_elevation">2dp</dimen>
-    <!-- Inset shadow for RoundRectDrawableWithShadow. It is used to avoid gaps between the card
-     and the shadow. -->
-    <dimen name="cardview_compat_inset_shadow">1dp</dimen>
 </resources>

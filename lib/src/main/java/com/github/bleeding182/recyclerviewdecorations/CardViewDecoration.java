@@ -1,14 +1,7 @@
 package com.github.bleeding182.recyclerviewdecorations;
 
 import android.content.res.Resources;
-import android.graphics.Canvas;
-import android.graphics.LinearGradient;
-import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.RadialGradient;
-import android.graphics.Rect;
-import android.graphics.RectF;
-import android.graphics.Shader;
+import android.graphics.*;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
