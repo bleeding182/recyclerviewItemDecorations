@@ -1,7 +1,7 @@
 # RecyclerView ItemDecorations
 [![Circle CI](https://circleci.com/gh/bleeding182/recyclerviewItemDecorations/tree/master.svg?style=shield)](https://circleci.com/gh/bleeding182/recyclerviewItemDecorations/tree/master)
 
-This project showcases ItemDecorations for RecyclerViews. For some general guidance you can see 2 blog posts on this topic by me [here](http://bleeding182.blogspot.co.at/2015/11/separator.html) and [here](http://bleeding182.blogspot.co.at/2015/11/animations-and-decorations.html) which should cover the basics of drawing decorations.
+This project showcases some ItemDecorations for RecyclerViews. I wrote blog posts explaining the [basics of drawing decorations](http://blog.davidmedenjak.com/android/2015/11/10/recyclerview-with-decorations-basic-guide.html) and [animating them along with the recyclerview](http://blog.davidmedenjak.com/android/2015/11/18/decorations-animations.html).
 
 ## Library
 
