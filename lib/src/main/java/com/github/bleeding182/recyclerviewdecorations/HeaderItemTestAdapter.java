@@ -6,18 +6,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import com.github.bleeding182.recyclerviewdecorations.R;
 
 /**
  * Created by David on 16.06.2015.
  */
 public class HeaderItemTestAdapter extends RecyclerView.Adapter<HeaderItemTestAdapter.SimpleViewHolder>
         implements ItemTouchHelperCallback.ItemTouchHelperAdapter {
+
     public static final int HEADER = 1;
     private static final int ITEM = 2;
 
     @Override
     public void onItemDismiss(int position) {
-         
+
     }
 
     public static class SimpleViewHolder extends ViewHolder {
@@ -31,7 +33,7 @@ public class HeaderItemTestAdapter extends RecyclerView.Adapter<HeaderItemTestAd
     }
 
     @Override
-    public HeaderItemTestAdapter.SimpleViewHolder onCreateViewHolder(ViewGroup viewGroup, int type) {
+    public SimpleViewHolder onCreateViewHolder(ViewGroup viewGroup, int type) {
         final View view;
         if (type == HEADER) {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.vh_item_header, viewGroup, false);
@@ -42,7 +44,7 @@ public class HeaderItemTestAdapter extends RecyclerView.Adapter<HeaderItemTestAd
     }
 
     @Override
-    public void onBindViewHolder(HeaderItemTestAdapter.SimpleViewHolder viewHolder, int i) {
+    public void onBindViewHolder(SimpleViewHolder viewHolder, int i) {
         if (getItemViewType(i) == HEADER) {
             viewHolder.text.setText("Header " + i / 10);
         } else {
