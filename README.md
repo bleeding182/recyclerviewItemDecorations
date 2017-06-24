@@ -1,25 +1,34 @@
 # RecyclerView ItemDecorations
 [![Circle CI](https://circleci.com/gh/bleeding182/recyclerviewItemDecorations/tree/master.svg?style=shield)](https://circleci.com/gh/bleeding182/recyclerviewItemDecorations/tree/master)
 
-This project showcases some ItemDecorations for RecyclerViews. I wrote blog posts explaining the [basics of drawing decorations](http://blog.davidmedenjak.com/android/2015/11/10/recyclerview-with-decorations-basic-guide.html) and [animating them along with the recyclerview](http://blog.davidmedenjak.com/android/2015/11/18/decorations-animations.html).
+This project showcases some ItemDecorations for RecyclerViews.
+There is a blog post about the [basics of drawing decorations][basics] and [animating them along with the recyclerview][animating].
 
 ## Library
 
-If you find something appealing, please go ahead and just copy it. The MIT license applies. Up to this point I don't see it fit being published as a library. Currently this project is just my personal playground in which I will try out RecyclerView features.
+If you find something appealing, please go ahead and just copy it, the MIT license applies.
 
-I will not yet be officially releasing any code, because it is not thoroughly tested and I did not yet want to go that extra step.
+I don't see it fit to be published as a library since this would need to include thorough testing and clean interfaces.
+So instead this project is just my personal playground in which I will have my go at the `RecyclerView`.
 
-## Current features
+## Current Examples
 
-* Made a lightweight header decoration with shadow and / or parallax effect
+* A lightweight header decoration with shadow and / or parallax effect
 
 ![Header Decoration](/readme/headerdecoration.gif)
 
-* Added a decoration for dismissing items to draw in the background like Gmail
+* A ViewPagerIndicator Decoration to be used with `SnapHelper`, with [more information here][pagingRVs]
+
+![ViewPagerDecoration](/readme/viewpagerdecoration.gif)
+
+* A decoration for dismissing items to draw in the background like Gmail
 
 ![Dismissing items](/readme/dismiss.gif)
 
-* Tried adding some CardLayout like Decoration to a RecyclerView.
-* Added some Parallax Like effect on a header
+* Some CardLayout like Decoration with some Parallax like effect on headers
 
 ![Screenshot](/readme/animation.gif)
+
+  [basics]:http://blog.davidmedenjak.com/android/2015/11/10/recyclerview-with-decorations-basic-guide.html
+  [animating]:http://blog.davidmedenjak.com/android/2015/11/18/decorations-animations.html
+  [pagingRVs]:http://blog.davidmedenjak.com/android/2017/06/24/viewpager-recyclerview.html

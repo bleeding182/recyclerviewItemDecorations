@@ -1,5 +1,5 @@
-<manifest package="com.github.bleeding182.recyclerviewdecorations"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.github.bleeding182.recyclerviewdecorations">
 
     <application
         android:allowBackup="true"
@@ -12,6 +12,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".viewpager.ViewPagerActivity"
+            android:exported="true"/>
 
     </application>
 
