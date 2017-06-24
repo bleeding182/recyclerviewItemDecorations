@@ -86,6 +86,7 @@ public class HeaderDecoration extends RecyclerView.ItemDecoration {
 
         for (int i = 0; i < parent.getChildCount(); i++) {
             View view = parent.getChildAt(i);
+            // getChildAdapterPosition, recyclerview version >= 22.2.0
             if (parent.getChildAdapterPosition(view) == 0) {
                 c.save();
                 if (mHorizontal) {
