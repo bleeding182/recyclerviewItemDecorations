@@ -21,6 +21,8 @@ So instead this project is just my personal playground in which I will have my g
 
 ![ViewPagerDecoration](/readme/viewpagerdecoration.gif)
 
+* A GridSpanDecoration that has proper vertical padding between its columns
+
 * A decoration for dismissing items to draw in the background like Gmail
 
 ![Dismissing items](/readme/dismiss.gif)
